@@ -42,7 +42,7 @@ const ProductList = ({ filteredProducts, addToCart }) => {
           ))
         ) : (
           <p className="text-gray-500">
-            Няма продукти, отговарящи на избраните филтри.
+            Няма продукти, отговарящи на избранита категория.
           </p>
         )}
       </div>
