@@ -1,27 +1,47 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "./components/Header";
 import Filter from "./components/Filter";
 import ProductList from "./components/ProductList";
-
-const productsData = [
-  { id: 1, name: "Тениска", category: "Дрехи", price: 25 },
-  { id: 2, name: "Дънки", category: "Дрехи", price: 50 },
-  { id: 3, name: "Маратонки", category: "Обувки", price: 80 },
-  { id: 4, name: "Яке", category: "Дрехи", price: 100 },
-  { id: 5, name: "Кецове", category: "Обувки", price: 60 },
-];
-
-const categories = ["Всички", "Дрехи", "Обувки"];
+import axios from "axios";
+import api from "./api.js";
 
 function App() {
+  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("Всички");
   const [maxPrice, setMaxPrice] = useState(100);
   const [cart, setCart] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
-  const filteredProducts = productsData.filter((product) => {
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await api.get("/products");
+        setProducts(response.data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await api.get("/categories");
+        setCategories(response.data);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
+  const filteredProducts = products.filter((product) => {
     const inCategory =
-      selectedCategory === "Всички" || product.category === selectedCategory;
+      selectedCategory === "Всички" || product.category_id == selectedCategory;
     const inPriceRange = product.price <= maxPrice;
     return inCategory && inPriceRange;
   });

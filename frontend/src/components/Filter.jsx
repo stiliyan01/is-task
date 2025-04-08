@@ -19,12 +19,15 @@ const Filter = ({
         <select
           id="categorySelect"
           className="w-full border border-gray-300 rounded-lg p-2 bg-white text-gray-800 shadow-sm focus:ring-2 focus:ring-indigo-400"
-          value={selectedCategory}
-          onChange={(e) => setSelectedCategory(e.target.value)}
+          value={selectedCategory.id}
+          onChange={(e) => {
+            setSelectedCategory(e.target.value);
+          }}
         >
+          <option value="Всички">Всички</option>
           {categories.map((cat) => (
-            <option key={cat} value={cat}>
-              {cat}
+            <option key={cat.id} value={cat.id}>
+              {cat.name}
             </option>
           ))}
         </select>
