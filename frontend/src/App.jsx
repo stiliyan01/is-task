@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Header from "./components/Header";
 import Filter from "./components/Filter";
 import ProductList from "./components/ProductList";
-import axios from "axios";
 import api from "./api.js";
 
 function App() {
@@ -47,7 +46,27 @@ function App() {
   });
 
   const addToCart = (product) => {
-    setCart((prev) => [...prev, product]);
+    setCart((prevCart) => {
+      const existingProduct = prevCart.find(
+        (item) => item.name === product.name
+      );
+
+      if (existingProduct) {
+        return prevCart.map((item) =>
+          item.name === product.name ? { ...item, count: item.count + 1 } : item
+        );
+      } else {
+        return [
+          ...prevCart,
+          {
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            count: 1,
+          },
+        ];
+      }
+    });
   };
 
   return (
@@ -56,6 +75,7 @@ function App() {
         cart={cart}
         setIsCartOpen={setIsCartOpen}
         isCartOpen={isCartOpen}
+        setCart={setCart}
       />
       <Filter
         selectedCategory={selectedCategory}
