@@ -1,9 +1,12 @@
 import React from "react";
 import { ShoppingCart, X } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const CartDropdown = ({ cart, setCart, isCartOpen, setIsCartOpen }) => {
   const removeItemFromCart = (productId) => {
-    const updatedCart = cart.filter((item) => item.id !== productId);
+    const updatedCart = JSON.parse(localStorage.getItem(cart)).filter(
+      (item) => item.id !== productId
+    );
     setCart(updatedCart);
   };
 
@@ -40,6 +43,10 @@ const CartDropdown = ({ cart, setCart, isCartOpen, setIsCartOpen }) => {
       0
     );
     return total.toFixed(2);
+  };
+
+  const saveCartToLocalStorage = () => {
+    localStorage.setItem("cart", JSON.stringify(cart));
   };
 
   return (
@@ -109,9 +116,13 @@ const CartDropdown = ({ cart, setCart, isCartOpen, setIsCartOpen }) => {
               </div>
 
               <div className="mt-6">
-                <button className="w-full bg-indigo-500 hover:bg-indigo-600 text-white py-2 px-4 rounded-lg">
+                <Link
+                  to="/checkout"
+                  className="w-full bg-indigo-500 hover:bg-indigo-600 text-white py-2 px-4 rounded-lg"
+                  onClick={() => saveCartToLocalStorage()}
+                >
                   Завърши поръчката
-                </button>
+                </Link>
               </div>
             </div>
           )}

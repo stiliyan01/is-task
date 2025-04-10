@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import Header from "./components/Header";
-import Filter from "./components/Filter";
-import ProductList from "./components/ProductList";
+import Header from "./components/Header.jsx";
+import Filter from "./components/Filter.jsx";
+import ProductList from "./components/ProductList.jsx";
 import api from "./api.js";
 
 function App() {
@@ -9,7 +9,9 @@ function App() {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("Всички");
   const [maxPrice, setMaxPrice] = useState(100);
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(
+    localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : []
+  );
   const [isCartOpen, setIsCartOpen] = useState(false);
 
   useEffect(() => {
@@ -40,33 +42,24 @@ function App() {
 
   const filteredProducts = products.filter((product) => {
     const inCategory =
-      selectedCategory === "Всички" || product.category_id == selectedCategory;
+      selectedCategory === "Всички" || product.category_id === selectedCategory;
     const inPriceRange = product.price <= maxPrice;
     return inCategory && inPriceRange;
   });
 
   const addToCart = (product) => {
-    setCart((prevCart) => {
-      const existingProduct = prevCart.find(
-        (item) => item.name === product.name
+    localStorage.setItem("cart", JSON.stringify(cart));
+    const existingProduct = cart.find((item) => item.id === product.id);
+    if (existingProduct) {
+      setCart((prevCart) =>
+        prevCart.map((item) =>
+          item.id === product.id ? { ...item, count: item.count + 1 } : item
+        )
       );
-
-      if (existingProduct) {
-        return prevCart.map((item) =>
-          item.name === product.name ? { ...item, count: item.count + 1 } : item
-        );
-      } else {
-        return [
-          ...prevCart,
-          {
-            id: product.id,
-            name: product.name,
-            price: product.price,
-            count: 1,
-          },
-        ];
-      }
-    });
+    } else {
+      setCart((prevCart) => [...prevCart, { ...product, count: 1 }]);
+    }
+    localStorage.setItem("cart", JSON.stringify([...cart, product]));
   };
 
   return (
