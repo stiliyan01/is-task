@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
 
 const AdminLayout = () => {
   const location = useLocation();
@@ -8,26 +8,25 @@ const AdminLayout = () => {
 
   return (
     <div className="flex h-screen">
-      {/* Sidebar */}
       <aside className="w-64 bg-indigo-700 text-white p-6 space-y-6">
         <h1 className="text-2xl font-bold">Админ Панел</h1>
         <nav className="space-y-4">
-          <Link
+          <NavLink
             to="/admin/products"
             className={`block px-4 py-2 rounded hover:bg-indigo-800 ${
               isActive("products") ? "bg-indigo-800" : ""
             }`}
           >
             Продукти
-          </Link>
-          <Link
-            to="/admin/orders"
+          </NavLink>
+          <NavLink
+            to="/admin/categories"
             className={`block px-4 py-2 rounded hover:bg-indigo-800 ${
-              isActive("orders") ? "bg-indigo-800" : ""
+              isActive("categories") ? "bg-indigo-800" : ""
             }`}
           >
-            Поръчки
-          </Link>
+            Категории
+          </NavLink>
         </nav>
       </aside>
 
