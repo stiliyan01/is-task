@@ -5,7 +5,7 @@ const Modal = ({ isOpen, onClose, children }) => {
     <div
       className="fixed inset-0 flex items-center justify-center z-50"
       style={{
-        backgroundColor: "rgba(0, 0, 0, 0.5)", // Полупрозрачен черен фон
+        backgroundColor: "rgba(0, 0, 0, 0.5)",
       }}
     >
       <div className="bg-white rounded-xl p-6 max-w-md w-full shadow-lg relative">
