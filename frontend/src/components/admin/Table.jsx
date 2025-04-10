@@ -1,12 +1,13 @@
 import React from "react";
 import { Pencil, Trash2 } from "lucide-react";
+import { NavLink } from "react-router";
 
-const DataTable = ({
+const Table = ({
   data,
-  onEdit,
   onDelete,
   columns,
   noDataText = "Няма данни",
+  textForLink,
 }) => {
   const renderRowData = (item) => {
     return columns.map((col) => (
@@ -41,10 +42,9 @@ const DataTable = ({
               {renderRowData(item)}
               <td className="px-4 py-2 text-right">
                 <div className="flex justify-end space-x-4">
-                  <Pencil
-                    className="w-4 h-4 text-yellow-600 cursor-pointer"
-                    onClick={() => onEdit(item)}
-                  />
+                  <NavLink to={`/admin/${textForLink}/${item.id}`}>
+                    <Pencil className="w-4 h-4 text-yellow-600 cursor-pointer" />
+                  </NavLink>
                   <Trash2
                     className="w-4 h-4 text-red-600 cursor-pointer"
                     onClick={() => onDelete(item.id)}
@@ -59,4 +59,4 @@ const DataTable = ({
   );
 };
 
-export default DataTable;
+export default Table;
