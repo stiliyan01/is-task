@@ -14,7 +14,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::with('category')->get();
+        $products = Product::with('category')->orderByDesc("created_at")->get();
         return response()->json($products);
     }
 
@@ -32,7 +32,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return response()->json($product->with('category'));
+        return response()->json($product->load('category'));
     }
 
     /**
