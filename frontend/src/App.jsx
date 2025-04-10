@@ -42,7 +42,8 @@ function App() {
 
   const filteredProducts = products.filter((product) => {
     const inCategory =
-      selectedCategory === "Всички" || product.category_id === selectedCategory;
+      selectedCategory === "Всички" ||
+      product.category_id === Number(selectedCategory);
     const inPriceRange = product.price <= maxPrice;
     return inCategory && inPriceRange;
   });
