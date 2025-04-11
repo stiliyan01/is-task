@@ -45,7 +45,7 @@ const CategoryPage = () => {
         <h1 className="text-2xl font-bold">Категории</h1>
         <Link
           to="/admin/categories/create"
-          className="inline-block bg-green-700 text-white px-6 py-2 rounded-md"
+          className="inline-block bg-indigo-600 text-white px-6 py-2 rounded-md"
         >
           Създай категория
         </Link>
