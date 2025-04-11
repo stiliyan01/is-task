@@ -17,6 +17,9 @@ import CategoryPage from "./pages/admin/category/CategoryPage";
 import CreateCategoryPage from "./pages/admin/category/CreateCategoryPage";
 import EditCategoryPage from "./pages/admin/category/EditCategoryPage";
 
+import OrderPage from "./pages/admin/order/OrderPage";
+// import OrderDetailsPage from "./pages/admin/order/OrderDetailsPage";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -54,6 +57,15 @@ const router = createBrowserRouter([
       {
         path: "/admin/categories/:id",
         element: <EditCategoryPage />,
+      },
+
+      {
+        path: "/admin/orders",
+        element: <OrderPage />,
+      },
+      {
+        // path: "/admin/orders/:id",
+        // element: <OrderDetailsPage />,
       },
     ],
   },

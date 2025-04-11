@@ -1,28 +1,35 @@
 import React from "react";
-import { Pencil, Trash2 } from "lucide-react";
+import { Pencil, Trash2, Eye } from "lucide-react";
 import { NavLink } from "react-router-dom";
 
-const TableRow = React.memo(({ item, columns, onDelete, textForLink }) => {
-  return (
-    <tr className="border-t">
-      {columns.map((col) => (
-        <td key={col.key} className="px-4 py-2">
-          {item[col.key]}
+const TableRow = React.memo(
+  ({ item, columns, onDelete, textForLink, isForDetails = false }) => {
+    return (
+      <tr className="border-t">
+        {columns.map((col) => (
+          <td key={col.key} className="px-4 py-2">
+            {item[col.key]}
+          </td>
+        ))}
+        <td className="px-4 py-2 text-right">
+          <div className="flex justify-end space-x-4">
+            <NavLink to={`/admin/${textForLink}/${item.id}`}>
+              {isForDetails ? (
+                <Eye className="w-4 h-4 text-green-600 cursor-pointer" />
+              ) : (
+                <Pencil className="w-4 h-4 text-yellow-600 cursor-pointer" />
+              )}
+            </NavLink>
+
+            <Trash2
+              className="w-4 h-4 text-red-600 cursor-pointer"
+              onClick={() => onDelete(item.id)}
+            />
+          </div>
         </td>
-      ))}
-      <td className="px-4 py-2 text-right">
-        <div className="flex justify-end space-x-4">
-          <NavLink to={`/admin/${textForLink}/${item.id}`}>
-            <Pencil className="w-4 h-4 text-yellow-600 cursor-pointer" />
-          </NavLink>
-          <Trash2
-            className="w-4 h-4 text-red-600 cursor-pointer"
-            onClick={() => onDelete(item.id)}
-          />
-        </div>
-      </td>
-    </tr>
-  );
-});
+      </tr>
+    );
+  }
+);
 
 export default TableRow;

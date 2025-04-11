@@ -7,6 +7,7 @@ const Table = ({
   columns,
   noDataText = "Няма данни",
   textForLink,
+  isForDetails = false,
 }) => {
   return (
     <table className="w-full bg-white rounded shadow-md">
@@ -35,6 +36,7 @@ const Table = ({
               columns={columns}
               onDelete={onDelete}
               textForLink={textForLink}
+              isForDetails={true}
             />
           ))
         )}

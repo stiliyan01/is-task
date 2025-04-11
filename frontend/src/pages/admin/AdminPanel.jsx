@@ -8,7 +8,7 @@ const AdminLayout = () => {
 
   return (
     <div className="flex h-screen">
-      <aside className="w-64 bg-indigo-700 text-white p-6 space-y-6">
+      <aside className="w-64 bg-indigo-600 text-white p-6 space-y-6">
         <h1 className="text-2xl font-bold">Админ Панел</h1>
         <nav className="space-y-4">
           <NavLink
@@ -26,6 +26,14 @@ const AdminLayout = () => {
             }`}
           >
             Категории
+          </NavLink>
+          <NavLink
+            to="/admin/orders"
+            className={`block px-4 py-2 rounded hover:bg-indigo-800 ${
+              isActive("orders") ? "bg-indigo-800" : ""
+            }`}
+          >
+            Поръчки
           </NavLink>
         </nav>
       </aside>
