@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../../api";
+import FlashMessage from "../FlashMessage";
 
 const CheckoutForm = ({ cart, setCart }) => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const [flashMessage, setFlashMessage] = useState("");
+  const [flashMessageType, setFlashMessageType] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     address: "",
@@ -42,10 +45,20 @@ const CheckoutForm = ({ cart, setCart }) => {
         await api.post("/orders", orderData);
         setCart([]);
         localStorage.removeItem("cart");
-        navigate("/");
+        // navigate("/");
+        setFlashMessage("Поръчката е успешно изпратена!");
+        setFlashMessageType("success");
+        setFormData({
+          name: "",
+          address: "",
+          email: "",
+          phoneNumber: "",
+        });
       } catch (err) {
-        console.error("Грешка при поръчката:", err);
-        alert("Възникна грешка при изпращането.");
+        setFlashMessage(
+          "Грешка при изпращане на поръчката. Моля, опитайте отново."
+        );
+        setFlashMessageType("error");
       } finally {
         setIsLoading(false);
       }
@@ -56,6 +69,11 @@ const CheckoutForm = ({ cart, setCart }) => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+      <FlashMessage
+        message={flashMessage}
+        type={flashMessageType}
+        onClose={() => setFlashMessage("")}
+      />
       <div>
         <label className="block font-semibold" htmlFor="name">
           Име
