@@ -4,7 +4,8 @@ import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { createBrowserRouter, RouterProvider } from "react-router";
 
-import App from "./App";
+// import App from "./App";
+import Homepage from "./pages/Homepage";
 import Checkout from "./pages/Checkout";
 import AdminPanel from "./pages/admin/AdminPanel";
 
@@ -19,7 +20,7 @@ import EditCategoryPage from "./pages/admin/category/EditCategoryPage";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <Homepage />,
   },
   {
     path: "/checkout",
@@ -61,9 +62,7 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router}>
-      <App />
-    </RouterProvider>
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
 

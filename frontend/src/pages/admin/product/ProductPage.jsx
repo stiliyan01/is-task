@@ -66,7 +66,6 @@ const ProductPage = () => {
     { key: "id", label: "#" },
     { key: "name", label: "Име" },
     { key: "category_name", label: "Категория" },
-    { key: "price", label: "Цена" },
   ];
 
   if (isLoading) {
@@ -81,7 +80,7 @@ const ProductPage = () => {
         <div className="mb-4">
           <Link
             to="/admin/products/create"
-            className="inline-block bg-green-700 text-white px-6 py-2 rounded-md"
+            className="inline-block bg-indigo-600 text-white px-6 py-2 rounded-md"
           >
             Създайте нов продукт
           </Link>

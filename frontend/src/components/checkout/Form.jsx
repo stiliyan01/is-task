@@ -4,7 +4,7 @@ import api from "../../api";
 
 const CheckoutForm = ({ cart, setCart }) => {
   const navigate = useNavigate();
-
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     address: "",
@@ -37,6 +37,7 @@ const CheckoutForm = ({ cart, setCart }) => {
     };
 
     const submitOrder = async () => {
+      setIsLoading(true);
       try {
         await api.post("/orders", orderData);
         setCart([]);
@@ -45,6 +46,8 @@ const CheckoutForm = ({ cart, setCart }) => {
       } catch (err) {
         console.error("Грешка при поръчката:", err);
         alert("Възникна грешка при изпращането.");
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -116,13 +119,13 @@ const CheckoutForm = ({ cart, setCart }) => {
         <button
           type="submit"
           className={`${
-            cart.length === 0
+            cart.length === 0 || isLoading
               ? "bg-gray-300 cursor-not-allowed"
               : "bg-indigo-600 hover:bg-indigo-700"
           } text-white px-6 py-3 rounded-lg`}
-          disabled={cart.length === 0}
+          disabled={cart.length === 0 || isLoading}
         >
-          Завърши поръчката
+          {isLoading ? "Изпращане..." : "Завърши поръчката"}
         </button>
       </div>
     </form>

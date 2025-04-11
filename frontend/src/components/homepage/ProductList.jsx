@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import ProductCard from "./ProductCard";
 import Modal from "./Modal";
-import { useState } from "react";
 
 const ProductList = ({ filteredProducts, addToCart }) => {
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -23,7 +22,7 @@ const ProductList = ({ filteredProducts, addToCart }) => {
         {selectedProduct && (
           <div>
             <h1>Име: {selectedProduct.name}</h1>
-            <h4>Категория: {selectedProduct.category.name}</h4>
+            <h4>Категория: {selectedProduct.category?.name}</h4>
             <p>Описание: {selectedProduct.description}</p>
             <p>Цена: {selectedProduct.price} лв.</p>
           </div>
@@ -42,7 +41,7 @@ const ProductList = ({ filteredProducts, addToCart }) => {
           ))
         ) : (
           <p className="text-gray-500">
-            Няма продукти, отговарящи на избранита категория.
+            Няма продукти, отговарящи на избраната категория.
           </p>
         )}
       </div>
