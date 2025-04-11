@@ -1,5 +1,5 @@
 import React from "react";
-import TableRow from "./product/TableRow";
+import TableRow from "./TableRow";
 
 const Table = ({
   data,
@@ -7,7 +7,7 @@ const Table = ({
   columns,
   noDataText = "Няма данни",
   textForLink,
-  isForDetails = false,
+  isForDetails,
 }) => {
   return (
     <table className="w-full bg-white rounded shadow-md">
@@ -36,7 +36,7 @@ const Table = ({
               columns={columns}
               onDelete={onDelete}
               textForLink={textForLink}
-              isForDetails={true}
+              isForDetails={isForDetails}
             />
           ))
         )}
