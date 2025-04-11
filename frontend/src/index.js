@@ -18,7 +18,7 @@ import CreateCategoryPage from "./pages/admin/category/CreateCategoryPage";
 import EditCategoryPage from "./pages/admin/category/EditCategoryPage";
 
 import OrderPage from "./pages/admin/order/OrderPage";
-// import OrderDetailsPage from "./pages/admin/order/OrderDetailsPage";
+import OrderDetailsPage from "./pages/admin/order/OrderDetailsPage";
 
 const router = createBrowserRouter([
   {
@@ -64,8 +64,8 @@ const router = createBrowserRouter([
         element: <OrderPage />,
       },
       {
-        // path: "/admin/orders/:id",
-        // element: <OrderDetailsPage />,
+        path: "/admin/orders/:id",
+        element: <OrderDetailsPage />,
       },
     ],
   },
