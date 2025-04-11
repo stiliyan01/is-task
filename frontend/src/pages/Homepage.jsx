@@ -30,7 +30,6 @@ function HomePage() {
     };
     fetchData();
   }, []);
-  console.log(products, categories);
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);

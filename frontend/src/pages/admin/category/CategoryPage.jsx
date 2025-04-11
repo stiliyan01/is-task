@@ -56,6 +56,7 @@ const CategoryPage = () => {
         onDelete={handleDelete}
         columns={columns}
         textForLink="categories"
+        // isForDetails={false}
       />
     </div>
   );

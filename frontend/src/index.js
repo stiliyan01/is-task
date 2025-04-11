@@ -7,7 +7,9 @@ import { createBrowserRouter, RouterProvider } from "react-router";
 // import App from "./App";
 import Homepage from "./pages/Homepage";
 import Checkout from "./pages/Checkout";
-import AdminPanel from "./pages/admin/AdminPanel";
+import RegisterPage from "./pages/RegisterPage";
+import LoginPage from "./pages/LoginPage";
+import ProfilePanel from "./pages/admin/ProfilePanel";
 
 import ProductPage from "./pages/admin/product/ProductPage";
 import CreateProductPage from "./pages/admin/product/CreateProductPage";
@@ -30,41 +32,49 @@ const router = createBrowserRouter([
     element: <Checkout />,
   },
   {
-    path: "/admin",
-    element: <AdminPanel />,
+    path: "/login",
+    element: <LoginPage />,
+  },
+  {
+    path: "/register",
+    element: <RegisterPage />,
+  },
+  {
+    path: "/profile",
+    element: <ProfilePanel />,
     children: [
       {
-        path: "/admin/products",
+        path: "/profile/products",
         element: <ProductPage />,
       },
       {
-        path: "/admin/products/:id",
+        path: "/profile/products/:id",
         element: <EditProductPage />,
       },
       {
-        path: "/admin/products/create",
+        path: "/profile/products/create",
         element: <CreateProductPage />,
       },
 
       {
-        path: "/admin/categories",
+        path: "/profile/categories",
         element: <CategoryPage />,
       },
       {
-        path: "/admin/categories/create",
+        path: "/profile/categories/create",
         element: <CreateCategoryPage />,
       },
       {
-        path: "/admin/categories/:id",
+        path: "/profile/categories/:id",
         element: <EditCategoryPage />,
       },
 
       {
-        path: "/admin/orders",
+        path: "/profile/orders",
         element: <OrderPage />,
       },
       {
-        path: "/admin/orders/:id",
+        path: "/profile/orders/:id",
         element: <OrderDetailsPage />,
       },
     ],

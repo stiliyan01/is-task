@@ -92,6 +92,7 @@ const ProductPage = () => {
         onDelete={handleDelete}
         columns={columns}
         textForLink={"products"}
+        // isForDetails={false}
       />
     </div>
   );
