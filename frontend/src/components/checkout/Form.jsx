@@ -1,13 +1,58 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import api from "../../api";
 
-const CheckoutForm = ({ formData, handleChange, handleSubmit, cart }) => {
+const CheckoutForm = ({ cart, setCart }) => {
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    name: "",
+    address: "",
+    email: "",
+    phoneNumber: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const total = cart.reduce((sum, item) => sum + item.price * item.count, 0);
+
+    const orderData = {
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phoneNumber,
+      address: formData.address,
+      products: cart.map((item) => ({
+        id: item.id,
+        name: item.name,
+        quantity: item.count,
+        price: item.price,
+      })),
+      total: total.toFixed(2),
+    };
+
+    const submitOrder = async () => {
+      try {
+        await api.post("/orders", orderData);
+        setCart([]);
+        localStorage.removeItem("cart");
+        navigate("/");
+      } catch (err) {
+        console.error("Грешка при поръчката:", err);
+        alert("Възникна грешка при изпращането.");
+      }
+    };
+
+    submitOrder();
+  };
+
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="space-y-4"
-      disabled={cart.length === 0}
-    >
+    <form onSubmit={handleSubmit} className="space-y-4">
       <div>
         <label className="block font-semibold" htmlFor="name">
           Име
@@ -24,7 +69,7 @@ const CheckoutForm = ({ formData, handleChange, handleSubmit, cart }) => {
       </div>
       <div>
         <label className="block font-semibold" htmlFor="address">
-          Адрес за доставка
+          Адрес
         </label>
         <input
           type="text"
@@ -38,7 +83,7 @@ const CheckoutForm = ({ formData, handleChange, handleSubmit, cart }) => {
       </div>
       <div>
         <label className="block font-semibold" htmlFor="email">
-          Имейл адрес
+          Имейл
         </label>
         <input
           type="email"
@@ -52,10 +97,10 @@ const CheckoutForm = ({ formData, handleChange, handleSubmit, cart }) => {
       </div>
       <div>
         <label className="block font-semibold" htmlFor="phoneNumber">
-          Телефонен номер
+          Телефон
         </label>
         <input
-          type="number"
+          type="text"
           id="phoneNumber"
           name="phoneNumber"
           value={formData.phoneNumber}
