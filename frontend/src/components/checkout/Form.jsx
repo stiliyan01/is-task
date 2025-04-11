@@ -103,7 +103,7 @@ const CheckoutForm = ({ cart, setCart }) => {
           Телефон
         </label>
         <input
-          type="text"
+          type="number"
           id="phoneNumber"
           name="phoneNumber"
           value={formData.phoneNumber}
