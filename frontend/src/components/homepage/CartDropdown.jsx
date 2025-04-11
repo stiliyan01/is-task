@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { ShoppingCart, X } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const CartDropdown = ({ cart, setCart, isCartOpen, setIsCartOpen }) => {
+  const dropdownRef = useRef();
+
   const removeItem = (id) => {
     setCart(cart.filter((item) => item.id !== id));
   };
@@ -27,8 +29,24 @@ const CartDropdown = ({ cart, setCart, isCartOpen, setIsCartOpen }) => {
 
   const total = cart.reduce((sum, item) => sum + item.price * item.count, 0);
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsCartOpen(false);
+      }
+    };
+
+    if (isCartOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isCartOpen]);
+
   return (
-    <div className="relative">
+    <div className="relative z-50">
       <div
         className="cursor-pointer w-8 h-8 text-gray-600 hover:text-indigo-600"
         onClick={() => setIsCartOpen(!isCartOpen)}
@@ -40,34 +58,54 @@ const CartDropdown = ({ cart, setCart, isCartOpen, setIsCartOpen }) => {
           </span>
         )}
       </div>
+
       {isCartOpen && (
-        <div className="absolute right-0 mt-2 w-110 p-4 bg-white border border-gray-200 rounded-lg shadow-md">
+        <div
+          ref={dropdownRef}
+          className="absolute right-0 mt-2 w-80 p-4 bg-white border border-gray-200 rounded-lg shadow-md"
+        >
           <h3 className="font-bold mb-4">Количка</h3>
           {cart.length === 0 ? (
             <p className="text-gray-500">Количката е празна</p>
           ) : (
             <div>
               {cart.map((item) => (
-                <div key={item.id} className="flex justify-between mb-4">
-                  <span>{item.name}</span>
-                  <div className="flex items-center">
-                    <button onClick={() => decrease(item.id)}>
-                      {" "}
-                      <span className="bg-gray-100 rounded-full text-sm font-medium text-gray-700 shadow">
-                        -
+                <div key={item.id} className="mb-4 border-b pb-2">
+                  <div className="flex justify-between items-start">
+                    <div className="flex flex-col">
+                      <span className="font-medium text-gray-800">
+                        {item.name}
                       </span>
-                    </button>
-                    <span className="mx-2">{item.count}</span>
-                    <button onClick={() => increase(item.id)}>
-                      <span className="bg-gray-100 rounded-full text-sm font-medium text-gray-700 shadow">
-                        +
+                      <span className="text-sm text-gray-500">
+                        категория: {item.category_name}
                       </span>
+                    </div>
+                    <button onClick={() => removeItem(item.id)}>
+                      <X className="w-4 h-4 text-red-500" />
                     </button>
                   </div>
-                  <span>{(item.price * item.count).toFixed(2)} лв</span>
-                  <button onClick={() => removeItem(item.id)}>
-                    <X className="w-4 h-4 text-red-500" />
-                  </button>
+
+                  <div className="flex justify-between items-center mt-2">
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => decrease(item.id)}
+                        className="bg-gray-100 rounded-full text-sm font-medium text-gray-700 shadow px-2"
+                      >
+                        -
+                      </button>
+                      <span>{item.count}</span>
+                      <button
+                        onClick={() => increase(item.id)}
+                        className="bg-gray-100 rounded-full text-sm font-medium text-gray-700 shadow px-2"
+                      >
+                        +
+                      </button>
+                    </div>
+
+                    <span className="font-medium">
+                      {(item.price * item.count).toFixed(2)} лв
+                    </span>
+                  </div>
                 </div>
               ))}
               <div className="text-right font-bold mt-4">
