@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Order\StoreOrderRequest;
+use App\Http\Requests\Api\Order\UpdateOrderRequest;
 use App\Models\Order;
-use App\Http\Requests\Order\StoreOrderRequest;
-use App\Http\Requests\UpdateOrderRequest;
 
 class OrderController extends Controller
 {
     /**
-     * List all orders 
+     * List all orders
      */
     public function index()
     {
