@@ -9,7 +9,8 @@ import Homepage from "./pages/Homepage";
 import Checkout from "./pages/Checkout";
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
-import ProfilePanel from "./pages/admin/ProfilePanel";
+import ProfilePage from "./pages/ProfilePage";
+import AdminPage from "./pages/admin/AdminPage";
 
 import ProductPage from "./pages/admin/product/ProductPage";
 import CreateProductPage from "./pages/admin/product/CreateProductPage";
@@ -41,7 +42,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/profile",
-    element: <ProfilePanel />,
+    element: <ProfilePage />,
     children: [
       {
         path: "/profile/products",
@@ -75,6 +76,47 @@ const router = createBrowserRouter([
       },
       {
         path: "/profile/orders/:id",
+        element: <OrderDetailsPage />,
+      },
+    ],
+  },
+
+  {
+    path: "/admin",
+    element: <AdminPage />,
+    children: [
+      {
+        path: "/admin/products",
+        element: <ProductPage />,
+      },
+      {
+        path: "/admin/products/:id",
+        element: <EditProductPage />,
+      },
+      {
+        path: "/admin/products/create",
+        element: <CreateProductPage />,
+      },
+
+      {
+        path: "/admin/categories",
+        element: <CategoryPage />,
+      },
+      {
+        path: "/admin/categories/create",
+        element: <CreateCategoryPage />,
+      },
+      {
+        path: "/admin/categories/:id",
+        element: <EditCategoryPage />,
+      },
+
+      {
+        path: "/admin/orders",
+        element: <OrderPage />,
+      },
+      {
+        path: "/admin/orders/:id",
         element: <OrderDetailsPage />,
       },
     ],

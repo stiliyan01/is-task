@@ -46,7 +46,7 @@ const ProfilePanel = () => {
               isActive("orders") ? "bg-indigo-800" : ""
             }`}
           >
-            Поръчки
+            Моите поръчки
           </NavLink>
 
           <button

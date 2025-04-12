@@ -79,6 +79,9 @@ export default function CheckoutForm({ cart, setCart }) {
           email: "",
           phoneNumber: "",
         });
+        setTimeout(() => {
+          navigate("/");
+        }, 3000);
       } catch (err) {
         console.log(err);
         setFlashMessage(
