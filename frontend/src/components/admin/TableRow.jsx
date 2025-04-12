@@ -13,7 +13,7 @@ const TableRow = React.memo(
         ))}
         <td className="px-4 py-2 text-right">
           <div className="flex justify-end space-x-4">
-            <NavLink to={`/admin/${textForLink}/${item.id}`}>
+            <NavLink to={`/profile/${textForLink}/${item.id}`}>
               {isForDetails ? (
                 <Eye className="w-4 h-4 text-green-600 cursor-pointer" />
               ) : (

@@ -79,7 +79,7 @@ const ProductPage = () => {
 
         <div className="mb-4">
           <Link
-            to="/admin/products/create"
+            to="/profile/products/create"
             className="inline-block bg-indigo-600 text-white px-6 py-2 rounded-md"
           >
             Създайте нов продукт
