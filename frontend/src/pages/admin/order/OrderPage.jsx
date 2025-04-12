@@ -10,7 +10,13 @@ const OrderPage = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await api.get("/orders");
+        const user = JSON.parse(localStorage.getItem("user"));
+        let response;
+        if (user.is_admin === 0) {
+          response = await api.get("/orders");
+        } else if (user.is_admin === 1) {
+          response = await api.get("/admin/orders");
+        }
         setOrders(response.data);
       } catch (error) {
         console.error("Error fetching orders:", error);

@@ -20,12 +20,13 @@ export default function CheckoutForm({ cart, setCart }) {
     if (storedUser) {
       try {
         const user = JSON.parse(storedUser);
-        setFormData({
+        setFormData((prev) => ({
+          ...prev,
           name: user.name || "",
           address: user.address || "",
           email: user.email || "",
           phoneNumber: user.phone_number || "",
-        });
+        }));
       } catch (error) {
         console.error("Неуспешно парсване на user:", error);
       }
@@ -37,17 +38,22 @@ export default function CheckoutForm({ cart, setCart }) {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     const total = cart.reduce((sum, item) => sum + item.price * item.count, 0);
-    const storedUser = localStorage.getItem("user");
+
     let userId = null;
+    const storedUser = localStorage.getItem("user");
 
     if (storedUser) {
       try {
-        userId = JSON.parse(storedUser)?.id;
-      } catch {}
+        const parsedUser = JSON.parse(storedUser);
+        userId = parsedUser?.id || null;
+      } catch (err) {
+        console.error("Грешка при парсване на user:", err);
+      }
     }
 
     const orderData = {
@@ -65,35 +71,33 @@ export default function CheckoutForm({ cart, setCart }) {
       total: total.toFixed(2),
     };
 
-    const submitOrder = async () => {
-      setIsLoading(true);
-      try {
-        await api.post("/orders", orderData);
-        setCart([]);
-        localStorage.removeItem("cart");
-        setFlashMessage("Поръчката е успешно изпратена!");
-        setFlashMessageType("success");
-        setFormData({
-          name: "",
-          address: "",
-          email: "",
-          phoneNumber: "",
-        });
-        setTimeout(() => {
-          navigate("/");
-        }, 3000);
-      } catch (err) {
-        console.log(err);
-        setFlashMessage(
-          "Грешка при изпращане на поръчката. Моля, опитайте отново."
-        );
-        setFlashMessageType("error");
-      } finally {
-        setIsLoading(false);
-      }
-    };
+    try {
+      await api.post("/orders", orderData);
+      setCart([]);
+      localStorage.removeItem("cart");
 
-    submitOrder();
+      setFlashMessage("Поръчката е успешно изпратена!");
+      setFlashMessageType("success");
+
+      setFormData({
+        name: "",
+        address: "",
+        email: "",
+        phoneNumber: "",
+      });
+
+      setTimeout(() => {
+        navigate("/");
+      }, 3000);
+    } catch (err) {
+      console.error("Грешка при поръчка:", err);
+      setFlashMessage(
+        "Грешка при изпращане на поръчката. Моля, опитайте отново."
+      );
+      setFlashMessageType("error");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
