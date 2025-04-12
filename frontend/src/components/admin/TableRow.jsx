@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 
 const TableRow = React.memo(
   ({ item, columns, onDelete, textForLink, isForDetails = false }) => {
+    const user = JSON.parse(localStorage.getItem("user"));
     return (
       <tr className="border-t">
         {columns.map((col) => (
@@ -20,11 +21,12 @@ const TableRow = React.memo(
                 <Pencil className="w-4 h-4 text-yellow-600 cursor-pointer" />
               )}
             </NavLink>
-
-            <Trash2
-              className="w-4 h-4 text-red-600 cursor-pointer"
-              onClick={() => onDelete(item.id)}
-            />
+            {user.is_admin === 1 && (
+              <Trash2
+                className="w-4 h-4 text-red-600 cursor-pointer"
+                onClick={() => onDelete(item.id)}
+              />
+            )}
           </div>
         </td>
       </tr>
