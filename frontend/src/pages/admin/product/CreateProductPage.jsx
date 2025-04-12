@@ -38,7 +38,7 @@ const CreateProductPage = () => {
     e.preventDefault();
     try {
       await api.post("/products", product);
-      navigate("/admin/products");
+      navigate("/profile/products");
     } catch (error) {
       console.error("Error creating product:", error);
     }

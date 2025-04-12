@@ -33,7 +33,7 @@ const EditCategoryPage = () => {
     e.preventDefault();
     try {
       await api.put(`/categories/${id}`, category);
-      navigate("/admin/categories");
+      navigate("/profile/categories");
     } catch (error) {
       console.error("Error updating category:", error);
     }

@@ -19,7 +19,7 @@ const CreateCategoryPage = () => {
     e.preventDefault();
     try {
       await api.post("/categories", category);
-      navigate("/admin/categories");
+      navigate("/profile/categories");
     } catch (error) {
       console.error("Error creating category:", error);
     }

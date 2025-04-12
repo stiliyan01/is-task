@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../../api";
 import FlashMessage from "../FlashMessage";
@@ -15,6 +15,23 @@ export default function CheckoutForm({ cart, setCart }) {
     phoneNumber: "",
   });
 
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      try {
+        const user = JSON.parse(storedUser);
+        setFormData({
+          name: user.name || "",
+          address: user.address || "",
+          email: user.email || "",
+          phoneNumber: user.phone_number || "",
+        });
+      } catch (error) {
+        console.error("Неуспешно парсване на user:", error);
+      }
+    }
+  }, []);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -24,11 +41,17 @@ export default function CheckoutForm({ cart, setCart }) {
     e.preventDefault();
 
     const total = cart.reduce((sum, item) => sum + item.price * item.count, 0);
+    const storedUser = localStorage.getItem("user");
+    let userId = null;
+
+    if (storedUser) {
+      try {
+        userId = JSON.parse(storedUser)?.id;
+      } catch {}
+    }
 
     const orderData = {
-      ...(localStorage.getItem("user") && {
-        user_id: localStorage.getItem("user").id,
-      }),
+      ...(userId && { user_id: userId }),
       name: formData.name,
       email: formData.email,
       phone: formData.phoneNumber,
@@ -57,6 +80,7 @@ export default function CheckoutForm({ cart, setCart }) {
           phoneNumber: "",
         });
       } catch (err) {
+        console.log(err);
         setFlashMessage(
           "Грешка при изпращане на поръчката. Моля, опитайте отново."
         );

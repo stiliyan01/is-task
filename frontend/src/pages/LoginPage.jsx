@@ -1,14 +1,12 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import FlashMessage from "../components/FlashMessage";
-import api from "../api";
+import api, { initializeCsrf } from "../api";
 
 export default function Login() {
   const [form, setForm] = useState({
-    name: "",
     email: "",
     password: "",
-    password_confirmation: "",
   });
 
   const navigate = useNavigate();
@@ -26,18 +24,19 @@ export default function Login() {
     setLoading(true);
 
     try {
-      const response = await api.post("/login", form);
+      const response = await api.post(
+        "/login",
+        { email: form.email, password: form.password },
+        { withCredentials: true }
+      );
+      localStorage.setItem("user", JSON.stringify(response.data.data.user));
+      localStorage.setItem("token", response.data.data.token);
 
-      setFlashMessage("Успешен вход!");
-      setFlashMessageType("success");
-
-      localStorage.setItem("user", JSON.stringify(response.data.user));
-      localStorage.setItem("token", response.data.token);
-
+      console.log("Login response:", response.data);
       navigate(-1);
     } catch (error) {
+      console.error("Login error:", error);
       setFlashMessage("Грешка при вход. Проверете данните си.");
-      setFlashMessageType("error");
     } finally {
       setLoading(false);
     }
@@ -90,8 +89,8 @@ export default function Login() {
         </form>
 
         <p className="text-center text-sm text-gray-600 mt-4">
-          Нямаш акаунт?<span> </span>
-          <Link to="/register" className="text-indigo-600 hover:underline">
+          Нямаш акаунт?
+          <Link to="/register" className="text-indigo-600 hover:underline ml-1">
             Регистрирай се
           </Link>
         </p>
