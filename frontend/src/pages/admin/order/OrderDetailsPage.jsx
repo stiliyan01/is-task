@@ -72,7 +72,7 @@ const OrderDetailsPage = () => {
                   {product.quantity}
                 </td>
                 <td className="p-2 border border-gray-100">
-                  {product.price.toFixed(2)} лв.
+                  {Number(product.price).toFixed(2)} лв.
                 </td>
                 <td className="p-2 border border-gray-100">
                   {Number(product.price * product.quantity).toFixed(2)} лв.
