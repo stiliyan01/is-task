@@ -4,13 +4,14 @@ import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { createBrowserRouter, RouterProvider } from "react-router";
 
-// import App from "./App";
 import Homepage from "./pages/Homepage";
 import Checkout from "./pages/Checkout";
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 import ProfilePage from "./pages/ProfilePage";
 import AdminPage from "./pages/admin/AdminPage";
+
+import AdminMiddleware from "./middleware/AdminMiddleware";
 
 import ProductPage from "./pages/admin/product/ProductPage";
 import CreateProductPage from "./pages/admin/product/CreateProductPage";
@@ -83,7 +84,11 @@ const router = createBrowserRouter([
 
   {
     path: "/admin",
-    element: <AdminPage />,
+    element: (
+      <AdminMiddleware>
+        <AdminPage />
+      </AdminMiddleware>
+    ),
     children: [
       {
         path: "/admin/products",
