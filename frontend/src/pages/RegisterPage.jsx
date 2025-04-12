@@ -26,12 +26,11 @@ export default function Register() {
 
     try {
       const response = await api.post("/register", form);
-      console.log("Регистриран потребител:", response.data);
       setFlashMessage("Регистрацията е успешна!");
       setFlashMessageType("success");
 
-      localStorage.setItem("user", JSON.stringify(response.data.user));
-      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("user", JSON.stringify(response.data.data.user));
+      localStorage.setItem("token", response.data.data.token);
 
       navigate("/");
     } catch (error) {

@@ -1,25 +1,14 @@
 import React from "react";
-import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
-import api from "../api";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
+import Logout from "../components/Logout";
 
 const ProfilePanel = () => {
   const location = useLocation();
-  const navigate = useNavigate();
+
   const user = JSON.parse(localStorage.getItem("user"));
   console.log(user);
   const isActive = (path) => location.pathname.includes(path);
 
-  const handleLogout = async () => {
-    try {
-      await api.post("/logout");
-    } catch (error) {
-      console.error("Грешка при изход:", error);
-    } finally {
-      localStorage.removeItem("user");
-      localStorage.removeItem("token");
-      navigate("/");
-    }
-  };
   return (
     <div className="flex h-screen">
       <aside className="w-64 bg-indigo-600 text-white p-6 space-y-6">
@@ -48,12 +37,7 @@ const ProfilePanel = () => {
             Моите поръчки
           </NavLink>
 
-          <button
-            onClick={handleLogout}
-            className="bg-red-500 text-white px-4 py-2 rounded-xl hover:bg-red-600 transition duration-200 shadow-md"
-          >
-            Изход
-          </button>
+          <Logout />
         </nav>
       </aside>
 

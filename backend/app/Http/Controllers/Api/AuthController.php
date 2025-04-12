@@ -13,8 +13,6 @@
     {
         use ApiResponses;
         public function login(LoginUserRequest $request) {
-
-            // wrap try catch 
             $request->validated($request->all());
             if (!Auth::attempt($request->only('email', 'password'))) {
                 return $this->error('Invalid credentials', 401);
@@ -48,8 +46,12 @@
             ]);
         }
         public function logout(Request $request) {
-            $request->user()->currentAccessToken()->delete();
-
-            return $this->ok('Logged out successfully');
+            if ($request->user()?->currentAccessToken()) {
+                $request->user()->currentAccessToken()->delete();
+            }
+        
+            return response()->json([
+                'message' => 'Изходът е успешен.',
+            ]);
         }
     }

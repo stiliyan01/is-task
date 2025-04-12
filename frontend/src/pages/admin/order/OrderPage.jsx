@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import api from "../../../api";
 import Table from "../../../components/admin/Table";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const OrderPage = () => {
   const [orders, setOrders] = useState([]);
@@ -12,6 +12,7 @@ const OrderPage = () => {
     const fetchOrders = async () => {
       try {
         const user = JSON.parse(localStorage.getItem("user"));
+        console.log(localStorage.getItem("token"));
         let response;
 
         if (user.is_admin === 0 || location.pathname.includes("profile")) {
