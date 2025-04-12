@@ -24,60 +24,75 @@ import EditCategoryPage from "./pages/admin/category/EditCategoryPage";
 import OrderPage from "./pages/admin/order/OrderPage";
 import OrderDetailsPage from "./pages/admin/order/OrderDetailsPage";
 
+import ErrorPage from "./pages/ErrorPage";
+
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Homepage />,
+    errorElement: <ErrorPage />,
   },
   {
     path: "/checkout",
     element: <Checkout />,
+    errorElement: <ErrorPage />,
   },
   {
     path: "/login",
     element: <LoginPage />,
+    errorElement: <ErrorPage />,
   },
   {
     path: "/register",
     element: <RegisterPage />,
+    errorElement: <ErrorPage />,
   },
   {
     path: "/profile",
     element: <ProfilePage />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/profile/products",
         element: <ProductPage />,
+        errorElement: <ErrorPage />,
       },
       {
         path: "/profile/products/:id",
         element: <EditProductPage />,
+        errorElement: <ErrorPage />,
       },
       {
         path: "/profile/products/create",
         element: <CreateProductPage />,
+        errorElement: <ErrorPage />,
       },
 
       {
         path: "/profile/categories",
         element: <CategoryPage />,
+        errorElement: <ErrorPage />,
       },
       {
         path: "/profile/categories/create",
         element: <CreateCategoryPage />,
+        errorElement: <ErrorPage />,
       },
       {
         path: "/profile/categories/:id",
         element: <EditCategoryPage />,
+        errorElement: <ErrorPage />,
       },
 
       {
         path: "/profile/orders",
         element: <OrderPage />,
+        errorElement: <ErrorPage />,
       },
       {
         path: "/profile/orders/:id",
         element: <OrderDetailsPage />,
+        errorElement: <ErrorPage />,
       },
     ],
   },
@@ -89,40 +104,49 @@ const router = createBrowserRouter([
         <AdminPage />
       </AdminMiddleware>
     ),
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/admin/products",
+        errorElement: <ErrorPage />,
         element: <ProductPage />,
       },
       {
         path: "/admin/products/:id",
         element: <EditProductPage />,
+        errorElement: <ErrorPage />,
       },
       {
         path: "/admin/products/create",
         element: <CreateProductPage />,
+        errorElement: <ErrorPage />,
       },
 
       {
         path: "/admin/categories",
         element: <CategoryPage />,
+        errorElement: <ErrorPage />,
       },
       {
         path: "/admin/categories/create",
         element: <CreateCategoryPage />,
+        errorElement: <ErrorPage />,
       },
       {
         path: "/admin/categories/:id",
         element: <EditCategoryPage />,
+        errorElement: <ErrorPage />,
       },
 
       {
         path: "/admin/orders",
         element: <OrderPage />,
+        errorElement: <ErrorPage />,
       },
       {
         path: "/admin/orders/:id",
         element: <OrderDetailsPage />,
+        errorElement: <ErrorPage />,
       },
     ],
   },
