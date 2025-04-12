@@ -12,16 +12,21 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        // $middleware->api(prepend: [
-        //     \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
-        // ]);
+        // Sanctum middleware за SPA auth с cookies (CSRF + session)
+        $middleware->statefulApi();
 
-        $middleware->alias([
-            'verified' => \App\Http\Middleware\EnsureEmailIsVerified::class,
+        // Това добавя EnsureFrontendRequestsAreStateful в API middleware групата
+        $middleware->api(prepend: [
+            \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ]);
 
-        //
+        // (по избор) Алиаси за допълнителни middleware-и
+        // $middleware->alias([
+        //     'verified' => \App\Http\Middleware\EnsureEmailIsVerified::class,
+        // ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
-    })->create();
+    })
+    ->create();

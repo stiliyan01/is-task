@@ -1,26 +1,17 @@
 import axios from "axios";
 
-const csrfToken = document.head.querySelector(
-  'meta[name="csrf-token"]'
-)?.content;
-
-const axiosInstance = axios.create({
+const token = localStorage.getItem("token");
+const api = axios.create({
   baseURL: "http://localhost:8000/api",
+  withXSRFToken: true,
+  withCredentials: true,
+  xsrfCookieName: "XSRF-TOKEN",
+  xsrfHeaderName: "X-XSRF-TOKEN",
   headers: {
     "Content-Type": "application/json",
-    ...(csrfToken && { "X-CSRF-TOKEN": csrfToken }),
+    Accept: "application/json",
+    ...(token && { Authorization: `Bearer ${token}` }),
   },
-  withCredentials: true,
 });
 
-axiosInstance.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
-
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-
-  return config;
-});
-
-export default axiosInstance;
+export default api;
