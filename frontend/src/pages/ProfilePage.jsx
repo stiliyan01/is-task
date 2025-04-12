@@ -25,6 +25,18 @@ const ProfilePanel = () => {
         <h1 className="text-2xl font-bold">Профил</h1>
         <nav className="space-y-4">
           <NavLink
+            to="/"
+            className="block px-4 py-2 rounded hover:bg-indigo-800"
+          >
+            Към магазина
+          </NavLink>
+          <NavLink
+            to="/admin"
+            className="block px-4 py-2 rounded hover:bg-indigo-800"
+          >
+            Админ панел
+          </NavLink>
+          <NavLink
             to="/profile/orders"
             className={`block px-4 py-2 rounded hover:bg-indigo-800 ${
               isActive("orders") ? "bg-indigo-800" : ""

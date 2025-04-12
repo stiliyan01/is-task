@@ -22,10 +22,16 @@ const ProfilePanel = () => {
   return (
     <div className="flex h-screen">
       <aside className="w-64 bg-indigo-600 text-white p-6 space-y-6">
-        <h1 className="text-2xl font-bold">Профил</h1>
+        <h1 className="text-2xl font-bold">Админ панел</h1>
         <nav className="space-y-4">
           <NavLink
-            to="/profile/products"
+            to="/"
+            className="block px-4 py-2 rounded hover:bg-indigo-800"
+          >
+            Към магазина
+          </NavLink>
+          <NavLink
+            to="/admin/products"
             className={`block px-4 py-2 rounded hover:bg-indigo-800 ${
               isActive("products") ? "bg-indigo-800" : ""
             }`}
@@ -33,7 +39,7 @@ const ProfilePanel = () => {
             Продукти
           </NavLink>
           <NavLink
-            to="/profile/categories"
+            to="/admin/categories"
             className={`block px-4 py-2 rounded hover:bg-indigo-800 ${
               isActive("categories") ? "bg-indigo-800" : ""
             }`}
@@ -41,12 +47,12 @@ const ProfilePanel = () => {
             Категории
           </NavLink>
           <NavLink
-            to="/profile/orders"
+            to="/admin/orders"
             className={`block px-4 py-2 rounded hover:bg-indigo-800 ${
               isActive("orders") ? "bg-indigo-800" : ""
             }`}
           >
-            Моите поръчки
+            Поръчки
           </NavLink>
 
           <button
