@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from "react";
 import api from "../../../api";
 import Table from "../../../components/admin/Table";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 const OrderPage = () => {
   const [orders, setOrders] = useState([]);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const fetchOrders = async () => {
       try {
         const user = JSON.parse(localStorage.getItem("user"));
         let response;
-        if (user.is_admin === 0) {
+
+        if (user.is_admin === 0 || location.pathname.includes("profile")) {
           response = await api.get("/orders");
         } else if (user.is_admin === 1) {
           response = await api.get("/admin/orders");
