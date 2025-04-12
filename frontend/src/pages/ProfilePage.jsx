@@ -5,7 +5,8 @@ import api from "../api";
 const ProfilePanel = () => {
   const location = useLocation();
   const navigate = useNavigate();
-
+  const user = JSON.parse(localStorage.getItem("user"));
+  console.log(user);
   const isActive = (path) => location.pathname.includes(path);
 
   const handleLogout = async () => {
@@ -30,12 +31,14 @@ const ProfilePanel = () => {
           >
             Към магазина
           </NavLink>
-          <NavLink
-            to="/admin"
-            className="block px-4 py-2 rounded hover:bg-indigo-800"
-          >
-            Админ панел
-          </NavLink>
+          {user.is_admin === 1 && (
+            <NavLink
+              to="/admin"
+              className="block px-4 py-2 rounded hover:bg-indigo-800"
+            >
+              Админ панел
+            </NavLink>
+          )}
           <NavLink
             to="/profile/orders"
             className={`block px-4 py-2 rounded hover:bg-indigo-800 ${
