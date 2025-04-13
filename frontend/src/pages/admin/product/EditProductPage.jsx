@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import api from "../../../api";
 import ProductForm from "../../../components/admin/product/ProductFrom";
-
 import { useParams, useNavigate } from "react-router-dom";
 
 const EditProductPage = () => {
@@ -13,25 +12,25 @@ const EditProductPage = () => {
     category_id: "",
   });
   const [categories, setCategories] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchProduct = async () => {
+    const fetchData = async () => {
       try {
-        const response = await api.get(`/products/${id}`);
-        setProduct(response.data);
-      } catch (error) {}
+        const [productRes, categoriesRes] = await Promise.all([
+          api.get(`/products/${id}`),
+          api.get("/categories"),
+        ]);
+        setProduct(productRes.data);
+        setCategories(categoriesRes.data);
+      } catch (error) {
+      } finally {
+        setIsLoading(false);
+      }
     };
 
-    const fetchCategories = async () => {
-      try {
-        const response = await api.get("/categories");
-        setCategories(response.data);
-      } catch (error) {}
-    };
-
-    fetchProduct();
-    fetchCategories();
+    fetchData();
   }, [id]);
 
   const handleChange = (e) => {
@@ -53,12 +52,16 @@ const EditProductPage = () => {
   return (
     <div>
       <h1 className="text-2xl font-bold mb-4">Редактиране на продукт</h1>
-      <ProductForm
-        product={product}
-        onChange={handleChange}
-        onSubmit={handleSubmit}
-        categories={categories}
-      />
+      {isLoading ? (
+        <div className="text-gray-600">Зареждане...</div>
+      ) : (
+        <ProductForm
+          product={product}
+          onChange={handleChange}
+          onSubmit={handleSubmit}
+          categories={categories}
+        />
+      )}
     </div>
   );
 };

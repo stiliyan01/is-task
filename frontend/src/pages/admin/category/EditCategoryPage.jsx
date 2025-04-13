@@ -6,6 +6,7 @@ import { useParams, useNavigate } from "react-router-dom";
 const EditCategoryPage = () => {
   const { id } = useParams();
   const [category, setCategory] = useState({ name: "" });
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -13,7 +14,10 @@ const EditCategoryPage = () => {
       try {
         const response = await api.get(`/categories/${id}`);
         setCategory(response.data);
-      } catch (error) {}
+      } catch (error) {
+      } finally {
+        setIsLoading(false);
+      }
     };
 
     fetchCategory();
@@ -38,11 +42,15 @@ const EditCategoryPage = () => {
   return (
     <div>
       <h1 className="text-2xl font-bold mb-4">Редактиране на категория</h1>
-      <CategoryForm
-        category={category}
-        onChange={handleChange}
-        onSubmit={handleSubmit}
-      />
+      {isLoading ? (
+        <div className="text-gray-600">Зареждане...</div>
+      ) : (
+        <CategoryForm
+          category={category}
+          onChange={handleChange}
+          onSubmit={handleSubmit}
+        />
+      )}
     </div>
   );
 };
