@@ -12,9 +12,7 @@ export default function ProfileDropdown() {
     if (storedUser) {
       try {
         setUser(JSON.parse(storedUser));
-      } catch (error) {
-        console.error("Грешка при парсване на user:", error);
-      }
+      } catch (error) {}
     }
   }, []);
 

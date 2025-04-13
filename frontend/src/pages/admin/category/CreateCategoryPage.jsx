@@ -20,9 +20,7 @@ const CreateCategoryPage = () => {
     try {
       await api.post("/categories", category);
       navigate("/profile/categories");
-    } catch (error) {
-      console.error("Error creating category:", error);
-    }
+    } catch (error) {}
   };
 
   return (

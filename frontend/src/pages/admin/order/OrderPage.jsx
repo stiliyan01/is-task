@@ -12,7 +12,6 @@ const OrderPage = () => {
     const fetchOrders = async () => {
       try {
         const user = JSON.parse(localStorage.getItem("user"));
-        console.log(localStorage.getItem("token"));
         let response;
 
         if (user.is_admin === 0 || location.pathname.includes("profile")) {
@@ -21,9 +20,7 @@ const OrderPage = () => {
           response = await api.get("/admin/orders");
         }
         setOrders(response.data);
-      } catch (error) {
-        console.error("Error fetching orders:", error);
-      }
+      } catch (error) {}
     };
 
     fetchOrders();

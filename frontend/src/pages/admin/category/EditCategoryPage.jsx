@@ -13,9 +13,7 @@ const EditCategoryPage = () => {
       try {
         const response = await api.get(`/categories/${id}`);
         setCategory(response.data);
-      } catch (error) {
-        console.error("Error fetching category:", error);
-      }
+      } catch (error) {}
     };
 
     fetchCategory();
@@ -34,9 +32,7 @@ const EditCategoryPage = () => {
     try {
       await api.put(`/categories/${id}`, category);
       navigate("/profile/categories");
-    } catch (error) {
-      console.error("Error updating category:", error);
-    }
+    } catch (error) {}
   };
 
   return (

@@ -27,9 +27,7 @@ export default function CheckoutForm({ cart, setCart }) {
           email: user.email || "",
           phoneNumber: user.phone_number || "",
         }));
-      } catch (error) {
-        console.error("Неуспешно парсване на user:", error);
-      }
+      } catch (error) {}
     }
   }, []);
 
@@ -51,9 +49,7 @@ export default function CheckoutForm({ cart, setCart }) {
       try {
         const parsedUser = JSON.parse(storedUser);
         userId = parsedUser?.id || null;
-      } catch (err) {
-        console.error("Грешка при парсване на user:", err);
-      }
+      } catch (err) {}
     }
 
     const orderData = {
@@ -90,7 +86,6 @@ export default function CheckoutForm({ cart, setCart }) {
         navigate("/");
       }, 3000);
     } catch (err) {
-      console.error("Грешка при поръчка:", err);
       setFlashMessage(
         "Грешка при изпращане на поръчката. Моля, опитайте отново."
       );

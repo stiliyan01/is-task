@@ -9,7 +9,6 @@ export default function Logout() {
     try {
       await api.post("/logout");
     } catch (error) {
-      console.error("Грешка при изход:", error);
     } finally {
       localStorage.removeItem("user");
       localStorage.removeItem("token");

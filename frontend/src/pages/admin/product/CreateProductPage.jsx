@@ -18,9 +18,7 @@ const CreateProductPage = () => {
       try {
         const response = await api.get("/categories");
         setCategories(response.data);
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-      }
+      } catch (error) {}
     };
 
     fetchCategories();
@@ -39,9 +37,7 @@ const CreateProductPage = () => {
     try {
       await api.post("/products", product);
       navigate("/profile/products");
-    } catch (error) {
-      console.error("Error creating product:", error);
-    }
+    } catch (error) {}
   };
 
   return (

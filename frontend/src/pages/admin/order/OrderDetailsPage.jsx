@@ -17,7 +17,6 @@ const OrderDetailsPage = () => {
 
         setOrder(orderData);
       } catch (error) {
-        console.error("Грешка при зареждане на поръчката:", error);
         setOrder(null);
       } finally {
         setLoading(false);
