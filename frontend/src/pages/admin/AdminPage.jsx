@@ -5,7 +5,7 @@ import Logout from "../../components/Logout";
 
 const ProfilePanel = () => {
   const location = useLocation();
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = JSON.parse(sessionStorage.getItem("user"));
 
   const isActive = (path) => location.pathname.includes(path);
 

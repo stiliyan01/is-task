@@ -5,7 +5,7 @@ export default function AdminMiddleware({ children }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
+    const user = JSON.parse(sessionStorage.getItem("user"));
 
     if (!user || user.is_admin !== 1) {
       navigate(-1);

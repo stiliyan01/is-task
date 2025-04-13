@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 
 const TableRow = React.memo(
   ({ item, columns, onDelete, textForLink, isForDetails = false }) => {
-    const user = JSON.parse(localStorage.getItem("user"));
+    const user = JSON.parse(sessionStorage.getItem("user"));
     return (
       <tr className="border-t">
         {columns.map((col) => (

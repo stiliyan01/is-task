@@ -6,7 +6,7 @@ function CheckoutPage() {
   const [cart, setCart] = useState([]);
 
   useEffect(() => {
-    const storedCart = localStorage.getItem("cart");
+    const storedCart = sessionStorage.getItem("cart");
     if (storedCart) {
       setCart(JSON.parse(storedCart));
     }

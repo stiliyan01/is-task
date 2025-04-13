@@ -29,8 +29,8 @@ export default function Register() {
       setFlashMessage("Регистрацията е успешна!");
       setFlashMessageType("success");
 
-      localStorage.setItem("user", JSON.stringify(response.data.data.user));
-      localStorage.setItem("token", response.data.data.token);
+      sessionStorage.setItem("user", JSON.stringify(response.data.data.user));
+      sessionStorage.setItem("token", response.data.data.token);
 
       navigate("/");
     } catch (error) {

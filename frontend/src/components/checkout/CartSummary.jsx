@@ -1,7 +1,7 @@
 import React from "react";
 
 const CartSummary = () => {
-  const total = JSON.parse(localStorage.getItem("cart")).reduce(
+  const total = JSON.parse(sessionStorage.getItem("cart")).reduce(
     (acc, item) => acc + item.price * item.count,
     0
   );

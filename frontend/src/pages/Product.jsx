@@ -9,7 +9,7 @@ export default function ProductPage() {
   const [product, setProduct] = useState({});
   const [loading, setLoading] = useState(true);
   const [cart, setCart] = useState(() => {
-    const stored = localStorage.getItem("cart");
+    const stored = sessionStorage.getItem("cart");
     return stored ? JSON.parse(stored) : [];
   });
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -41,7 +41,7 @@ export default function ProductPage() {
   }, [id]);
 
   useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
+    sessionStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
   const addToCart = (product) => {
@@ -79,7 +79,9 @@ export default function ProductPage() {
           <h1 className="text-2xl font-bold mb-2">{product.name}</h1>
           <p className="text-sm text-gray-500 mb-1">
             Категория:{" "}
-            <span className="font-medium">{product.category?.name}</span>
+            <span className="font-medium">
+              {product.category?.name || "Без категория"}
+            </span>
           </p>
           <p className="text-gray-700 mb-4 leading-relaxed">
             {product.description}

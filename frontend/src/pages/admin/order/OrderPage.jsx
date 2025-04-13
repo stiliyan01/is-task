@@ -11,20 +11,29 @@ const OrderPage = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const user = JSON.parse(localStorage.getItem("user"));
+        const userData = sessionStorage.getItem("user");
+        if (!userData) return;
+
+        const user = JSON.parse(userData);
+        const isAdmin = String(user?.is_admin) === "1";
+        const isUserPage = location.pathname.includes("/profile");
+
         let response;
 
-        if (user.is_admin === 0 || location.pathname.includes("profile")) {
-          response = await api.get("/orders");
-        } else if (user.is_admin === 1) {
-          response = await api.get("/admin/orders");
+        if (isAdmin && !isUserPage) {
+          response = await api.get("/admin/orders"); // админ гледа всички
+        } else {
+          response = await api.get("/orders"); // юзър вижда само своите
         }
+
         setOrders(response.data);
-      } catch (error) {}
+      } catch (error) {
+        console.error("Грешка при зареждане на поръчките:", error);
+      }
     };
 
     fetchOrders();
-  }, []);
+  }, [location.pathname]);
 
   const handleDelete = (id) => {
     const confirmDelete = window.confirm(
@@ -33,7 +42,7 @@ const OrderPage = () => {
     if (confirmDelete) {
       api.delete(`/orders/${id}`).then(() => {
         setOrders((prevOrders) =>
-          prevOrders.filter((orders) => orders.id !== id)
+          prevOrders.filter((order) => order.id !== id)
         );
         navigate("/admin/orders");
       });
@@ -50,7 +59,7 @@ const OrderPage = () => {
   return (
     <div>
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold">Поръчка</h1>
+        <h1 className="text-2xl font-bold">Поръчки</h1>
       </div>
 
       <Table

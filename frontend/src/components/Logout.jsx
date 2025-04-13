@@ -10,8 +10,8 @@ export default function Logout() {
       await api.post("/logout");
     } catch (error) {
     } finally {
-      localStorage.removeItem("user");
-      localStorage.removeItem("token");
+      sessionStorage.removeItem("user");
+      sessionStorage.removeItem("token");
       navigate("/");
     }
   };

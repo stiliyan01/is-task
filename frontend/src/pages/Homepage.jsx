@@ -10,7 +10,7 @@ function HomePage() {
   const [selectedCategory, setSelectedCategory] = useState("Всички");
   const [maxPrice, setMaxPrice] = useState(100);
   const [cart, setCart] = useState(() => {
-    const stored = localStorage.getItem("cart");
+    const stored = sessionStorage.getItem("cart");
     return stored ? JSON.parse(stored) : [];
   });
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -29,7 +29,7 @@ function HomePage() {
     fetchData();
   }, []);
   useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
+    sessionStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
   const addToCart = (product) => {

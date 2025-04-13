@@ -16,7 +16,7 @@ export default function CheckoutForm({ cart, setCart }) {
   });
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
+    const storedUser = sessionStorage.getItem("user");
     if (storedUser) {
       try {
         const user = JSON.parse(storedUser);
@@ -43,7 +43,7 @@ export default function CheckoutForm({ cart, setCart }) {
     const total = cart.reduce((sum, item) => sum + item.price * item.count, 0);
 
     let userId = null;
-    const storedUser = localStorage.getItem("user");
+    const storedUser = sessionStorage.getItem("user");
 
     if (storedUser) {
       try {
@@ -70,7 +70,7 @@ export default function CheckoutForm({ cart, setCart }) {
     try {
       await api.post("/orders", orderData);
       setCart([]);
-      localStorage.removeItem("cart");
+      sessionStorage.removeItem("cart");
 
       setFlashMessage("Поръчката е успешно изпратена!");
       setFlashMessageType("success");
@@ -156,7 +156,7 @@ export default function CheckoutForm({ cart, setCart }) {
           >
             {isLoading ? "Изпращане..." : "Завърши поръчката"}
           </button>
-          {!localStorage.getItem("token") && (
+          {!sessionStorage.getItem("token") && (
             <Link
               to="/login"
               className="bg-white border border-indigo-600 text-indigo-600 px-6 py-2 rounded-md hover:bg-indigo-50 transition text-sm text-center"

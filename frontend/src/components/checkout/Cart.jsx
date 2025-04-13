@@ -10,7 +10,7 @@ const Cart = ({ cart, setCart }) => {
       )
       .filter((item) => item.count > 0);
 
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    sessionStorage.setItem("cart", JSON.stringify(updatedCart));
     setCart(updatedCart);
   };
 
