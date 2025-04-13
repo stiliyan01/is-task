@@ -20,18 +20,14 @@ const EditProductPage = () => {
       try {
         const response = await api.get(`/products/${id}`);
         setProduct(response.data);
-      } catch (error) {
-        console.error("Error fetching product:", error);
-      }
+      } catch (error) {}
     };
 
     const fetchCategories = async () => {
       try {
         const response = await api.get("/categories");
         setCategories(response.data);
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-      }
+      } catch (error) {}
     };
 
     fetchProduct();
@@ -51,9 +47,7 @@ const EditProductPage = () => {
     try {
       await api.put(`/products/${id}`, product);
       navigate(`/profile/products`);
-    } catch (error) {
-      console.error("Error updating product:", error);
-    }
+    } catch (error) {}
   };
 
   return (

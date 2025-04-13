@@ -1,8 +1,4 @@
-import { useRouteError } from "react-router-dom";
-
 export default function ErrorPage() {
-  const error = useRouteError();
-
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 px-4">
       <div className="max-w-md bg-white shadow-xl rounded-3xl p-8 text-center">

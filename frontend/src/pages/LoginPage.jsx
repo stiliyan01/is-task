@@ -32,10 +32,8 @@ export default function Login() {
       localStorage.setItem("user", JSON.stringify(response.data.data.user));
       localStorage.setItem("token", response.data.data.token);
 
-      console.log("Login response:", response.data);
       navigate(-1);
     } catch (error) {
-      console.error("Login error:", error);
       setFlashMessage("Грешка при вход. Проверете данните си.");
     } finally {
       setLoading(false);

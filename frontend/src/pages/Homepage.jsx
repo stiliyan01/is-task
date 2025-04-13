@@ -24,9 +24,7 @@ function HomePage() {
         ]);
         setProducts(productRes.data);
         setCategories(categoryRes.data);
-      } catch (err) {
-        console.error("Грешка при зареждане:", err);
-      }
+      } catch (err) {}
     };
     fetchData();
   }, []);

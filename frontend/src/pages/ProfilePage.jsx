@@ -6,7 +6,6 @@ const ProfilePanel = () => {
   const location = useLocation();
 
   const user = JSON.parse(localStorage.getItem("user"));
-  console.log(user);
   const isActive = (path) => location.pathname.includes(path);
 
   return (

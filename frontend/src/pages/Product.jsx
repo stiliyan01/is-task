@@ -25,7 +25,6 @@ export default function ProductPage() {
         }
       } catch (error) {
         if (isMounted) {
-          console.error("Error fetching product:", error);
         }
       } finally {
         if (isMounted) {

@@ -12,9 +12,7 @@ const CategoryPage = () => {
       try {
         const response = await api.get("/categories");
         setCategories(response.data);
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-      }
+      } catch (error) {}
     };
 
     fetchCategories();
@@ -56,7 +54,6 @@ const CategoryPage = () => {
         onDelete={handleDelete}
         columns={columns}
         textForLink="categories"
-        // isForDetails={false}
       />
     </div>
   );

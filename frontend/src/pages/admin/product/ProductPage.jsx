@@ -14,18 +14,14 @@ const ProductPage = () => {
       try {
         const response = await api.get("/products");
         setProducts(response.data);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
+      } catch (error) {}
     };
 
     const fetchCategories = async () => {
       try {
         const response = await api.get("/categories");
         setCategories(response.data);
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-      }
+      } catch (error) {}
     };
 
     fetchProducts();
@@ -92,7 +88,6 @@ const ProductPage = () => {
         onDelete={handleDelete}
         columns={columns}
         textForLink={"products"}
-        // isForDetails={false}
       />
     </div>
   );
