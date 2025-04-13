@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import api from "../../../api";
 import ProductForm from "../../../components/admin/product/ProductFrom";
 import { useNavigate } from "react-router-dom";
+import BackButton from "../../../components/BackButton";
 
 const CreateProductPage = () => {
   const [product, setProduct] = useState({
@@ -42,7 +43,11 @@ const CreateProductPage = () => {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-4">Създаване на продукт</h1>
+      <div className="flex flex-row justify-between items-center mb-4">
+        <h1 className="text-2xl font-bold ">Създаване на продукт</h1>
+        <BackButton />
+      </div>
+
       <ProductForm
         product={product}
         onChange={handleChange}

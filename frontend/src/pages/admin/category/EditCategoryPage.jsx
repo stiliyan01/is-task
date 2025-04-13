@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import api from "../../../api";
 import CategoryForm from "../../../components/admin/category/CategoryForm";
 import { useParams, useNavigate } from "react-router-dom";
+import BackButton from "../../../components/BackButton";
 
 const EditCategoryPage = () => {
   const { id } = useParams();
@@ -41,7 +42,11 @@ const EditCategoryPage = () => {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-4">Редактиране на категория</h1>
+      <div className="flex flex-row justify-between items-center mb-4">
+        <h1 className="text-2xl font-bold mb-4">Редактиране на категория</h1>
+        <BackButton />
+      </div>
+
       {isLoading ? (
         <div className="text-gray-600">Зареждане...</div>
       ) : (

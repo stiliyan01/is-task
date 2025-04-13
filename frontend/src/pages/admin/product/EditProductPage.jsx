@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import api from "../../../api";
 import ProductForm from "../../../components/admin/product/ProductFrom";
 import { useParams, useNavigate } from "react-router-dom";
+import BackButton from "../../../components/BackButton";
 
 const EditProductPage = () => {
   const { id } = useParams();
@@ -51,7 +52,11 @@ const EditProductPage = () => {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-4">Редактиране на продукт</h1>
+      <div className="flex flex-row justify-between items-center mb-4">
+        <h1 className="text-2xl font-bold ">Редактиране на продукт</h1>
+        <BackButton />
+      </div>
+
       {isLoading ? (
         <div className="text-gray-600">Зареждане...</div>
       ) : (

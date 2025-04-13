@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import api from "../../../api";
 import CategoryForm from "../../../components/admin/category/CategoryForm";
 import { useNavigate } from "react-router-dom";
+import BackButton from "../../../components/BackButton";
 
 const CreateCategoryPage = () => {
   const [category, setCategory] = useState({ name: "" });
@@ -25,7 +26,10 @@ const CreateCategoryPage = () => {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-4">Създаване на категория</h1>
+      <div className="flex flex-row justify-between items-center mb-4">
+        <h1 className="text-2xl font-bold mb-4">Създаване на категория</h1>
+        <BackButton />
+      </div>
       <CategoryForm
         category={category}
         onChange={handleChange}

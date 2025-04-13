@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import api from "../../../api";
+import BackButton from "../../../components/BackButton";
 
 const OrderDetailsPage = () => {
   const { id } = useParams();
@@ -32,8 +33,10 @@ const OrderDetailsPage = () => {
 
   return (
     <div className="p-6 max-w-4xl mx-auto space-y-6 bg-gray-50 rounded-xl">
-      <h1 className="text-3xl font-bold">Детайли за поръчка #{id}</h1>
-
+      <div className="flex flex-row justify-between items-center mb-4">
+        <h1 className="text-3xl font-bold">Детайли за поръчка #{id}</h1>
+        <BackButton />
+      </div>
       <div className="bg-white shadow-md rounded-xl p-4 space-y-2 border border-gray-200">
         <p>
           <span className="font-semibold text-gray-700">Име:</span> {order.name}
