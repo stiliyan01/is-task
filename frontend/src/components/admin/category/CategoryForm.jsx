@@ -1,8 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import api from "../../../api";
 
-const CategoryForm = ({ category, onChange, onSubmit }) => {
+const CategoryForm = () => {
+  const [category, setCategory] = useState({ name: "" });
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setCategory((prevCategory) => ({
+      ...prevCategory,
+      [name]: value,
+    }));
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await api.post("/categories", category);
+      navigate(-1);
+    } catch (error) {}
+  };
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={handleSubmit}>
       <div className="mb-4">
         <label
           className="block text-sm font-medium text-gray-700"
@@ -15,7 +34,7 @@ const CategoryForm = ({ category, onChange, onSubmit }) => {
           id="name"
           name="name"
           value={category.name}
-          onChange={onChange}
+          onChange={handleChange}
           className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md"
           required
         />

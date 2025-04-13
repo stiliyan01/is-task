@@ -36,7 +36,7 @@ const CreateProductPage = () => {
     e.preventDefault();
     try {
       await api.post("/products", product);
-      navigate("/profile/products");
+      navigate("/admin/products");
     } catch (error) {}
   };
 

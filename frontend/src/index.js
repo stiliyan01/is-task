@@ -59,38 +59,6 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "/profile/products",
-        element: <ProductPage />,
-        errorElement: <ErrorPage />,
-      },
-      {
-        path: "/profile/products/:id",
-        element: <EditProductPage />,
-        errorElement: <ErrorPage />,
-      },
-      {
-        path: "/profile/products/create",
-        element: <CreateProductPage />,
-        errorElement: <ErrorPage />,
-      },
-
-      {
-        path: "/profile/categories",
-        element: <CategoryPage />,
-        errorElement: <ErrorPage />,
-      },
-      {
-        path: "/profile/categories/create",
-        element: <CreateCategoryPage />,
-        errorElement: <ErrorPage />,
-      },
-      {
-        path: "/profile/categories/:id",
-        element: <EditCategoryPage />,
-        errorElement: <ErrorPage />,
-      },
-
-      {
         path: "/profile/orders",
         element: <OrderPage />,
         errorElement: <ErrorPage />,
