@@ -85,7 +85,7 @@ const ProductForm = ({ product, onChange, onSubmit, categories }) => {
       <div className="flex justify-end">
         <button
           type="submit"
-          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+          className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-blue-700"
         >
           {product.id ? "Запази промените" : "Създай продукт"}
         </button>
