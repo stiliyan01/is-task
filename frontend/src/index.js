@@ -27,7 +27,6 @@ import OrderDetailsPage from "./pages/admin/order/OrderDetailsPage";
 
 import ErrorPage from "./pages/ErrorPage";
 import GuestOnlyRoute from "./middleware/GuestOnlyRoute";
-console.log(sessionStorage.getItem("user"));
 const router = createBrowserRouter([
   {
     path: "/",
