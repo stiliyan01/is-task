@@ -31,7 +31,7 @@ const EditCategoryPage = () => {
     e.preventDefault();
     try {
       await api.put(`/categories/${id}`, category);
-      navigate("/profile/categories");
+      navigate(-1);
     } catch (error) {}
   };
 

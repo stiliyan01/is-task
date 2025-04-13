@@ -46,7 +46,7 @@ const EditProductPage = () => {
     e.preventDefault();
     try {
       await api.put(`/products/${id}`, product);
-      navigate(`/profile/products`);
+      navigate(-1);
     } catch (error) {}
   };
 
