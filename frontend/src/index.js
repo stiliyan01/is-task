@@ -5,6 +5,7 @@ import reportWebVitals from "./reportWebVitals";
 import { createBrowserRouter, RouterProvider } from "react-router";
 
 import Homepage from "./pages/Homepage";
+import Product from "./pages/Product";
 import Checkout from "./pages/Checkout";
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
@@ -30,6 +31,11 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Homepage />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/product/:id",
+    element: <Product />,
     errorElement: <ErrorPage />,
   },
   {
