@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 export default function ErrorPage() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 px-4">
@@ -10,12 +12,12 @@ export default function ErrorPage() {
           Свържете се с администратора на сайта, за да разрешите проблема.
         </p>
 
-        <a
+        <Link
           href="/"
           className="inline-block mt-6 bg-indigo-600 text-white px-6 py-2 rounded-xl hover:bg-indigo-700 transition"
         >
           Обратно към началото
-        </a>
+        </Link>
       </div>
     </div>
   );
