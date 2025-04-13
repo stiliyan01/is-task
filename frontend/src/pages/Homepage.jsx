@@ -14,6 +14,7 @@ function HomePage() {
     return stored ? JSON.parse(stored) : [];
   });
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,10 +25,15 @@ function HomePage() {
         ]);
         setProducts(productRes.data);
         setCategories(categoryRes.data);
-      } catch (err) {}
+      } catch (err) {
+        console.error("Грешка при зареждане на продукти", err);
+      } finally {
+        setIsLoading(false);
+      }
     };
     fetchData();
   }, []);
+
   useEffect(() => {
     sessionStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
@@ -61,14 +67,26 @@ function HomePage() {
         isCartOpen={isCartOpen}
         setIsCartOpen={setIsCartOpen}
       />
-      <Filter
-        selectedCategory={selectedCategory}
-        setSelectedCategory={setSelectedCategory}
-        maxPrice={maxPrice}
-        setMaxPrice={setMaxPrice}
-        categories={categories}
-      />
-      <ProductList filteredProducts={filteredProducts} addToCart={addToCart} />
+
+      {isLoading ? (
+        <div className="text-center text-gray-500 mt-20 text-lg animate-pulse">
+          Зареждане на продукти...
+        </div>
+      ) : (
+        <>
+          <Filter
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
+            maxPrice={maxPrice}
+            setMaxPrice={setMaxPrice}
+            categories={categories}
+          />
+          <ProductList
+            filteredProducts={filteredProducts}
+            addToCart={addToCart}
+          />
+        </>
+      )}
     </div>
   );
 }
