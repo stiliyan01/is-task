@@ -26,7 +26,8 @@ import OrderPage from "./pages/admin/order/OrderPage";
 import OrderDetailsPage from "./pages/admin/order/OrderDetailsPage";
 
 import ErrorPage from "./pages/ErrorPage";
-
+import GuestOnlyRoute from "./middleware/GuestOnlyRoute";
+console.log(sessionStorage.getItem("user"));
 const router = createBrowserRouter([
   {
     path: "/",
@@ -45,12 +46,21 @@ const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <LoginPage />,
+    element: (
+      <GuestOnlyRoute>
+        <LoginPage />
+      </GuestOnlyRoute>
+    ),
+
     errorElement: <ErrorPage />,
   },
   {
     path: "/register",
-    element: <RegisterPage />,
+    element: (
+      <GuestOnlyRoute>
+        <RegisterPage />
+      </GuestOnlyRoute>
+    ),
     errorElement: <ErrorPage />,
   },
   {
