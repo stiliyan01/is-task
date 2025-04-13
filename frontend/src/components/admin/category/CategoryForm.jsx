@@ -1,27 +1,8 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import api from "../../../api";
+import React from "react";
 
-const CategoryForm = () => {
-  const [category, setCategory] = useState({ name: "" });
-  const navigate = useNavigate();
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setCategory((prevCategory) => ({
-      ...prevCategory,
-      [name]: value,
-    }));
-  };
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await api.post("/categories", category);
-      navigate(-1);
-    } catch (error) {}
-  };
+const CategoryForm = ({ category, onChange, onSubmit }) => {
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={onSubmit}>
       <div className="mb-4">
         <label
           className="block text-sm font-medium text-gray-700"
@@ -34,7 +15,7 @@ const CategoryForm = () => {
           id="name"
           name="name"
           value={category.name}
-          onChange={handleChange}
+          onChange={onChange}
           className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md"
           required
         />
@@ -43,7 +24,7 @@ const CategoryForm = () => {
       <div className="flex justify-end">
         <button
           type="submit"
-          className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-blue-700"
+          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
         >
           {category.id ? "Запази промените" : "Създай категория"}
         </button>
