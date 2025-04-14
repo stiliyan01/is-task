@@ -2,16 +2,20 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import Header from "../components/homepage/Header";
 import api from "../api";
+import ErrorPage from "./ErrorPage";
 
 export default function ProductPage() {
   const { id } = useParams();
 
   const [product, setProduct] = useState({});
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false); // ново
+
   const [cart, setCart] = useState(() => {
     const stored = sessionStorage.getItem("cart");
     return stored ? JSON.parse(stored) : [];
   });
+
   const [isCartOpen, setIsCartOpen] = useState(false);
 
   useEffect(() => {
@@ -24,7 +28,9 @@ export default function ProductPage() {
           setProduct(response.data);
         }
       } catch (error) {
+        console.error("Грешка при зареждане на продукта:", error);
         if (isMounted) {
+          setError(true); // сетваме грешка
         }
       } finally {
         if (isMounted) {
@@ -56,6 +62,10 @@ export default function ProductPage() {
       setCart((prev) => [...prev, { ...product, count: 1 }]);
     }
   };
+
+  if (error) {
+    return <ErrorPage />;
+  }
 
   return (
     <div className="max-w-4xl mx-auto p-6">
