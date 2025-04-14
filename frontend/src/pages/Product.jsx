@@ -9,7 +9,7 @@ export default function ProductPage() {
 
   const [product, setProduct] = useState({});
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false); // ново
+  const [error, setError] = useState(false);
 
   const [cart, setCart] = useState(() => {
     const stored = sessionStorage.getItem("cart");
@@ -30,7 +30,7 @@ export default function ProductPage() {
       } catch (error) {
         console.error("Грешка при зареждане на продукта:", error);
         if (isMounted) {
-          setError(true); // сетваме грешка
+          setError(true);
         }
       } finally {
         if (isMounted) {
