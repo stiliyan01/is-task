@@ -28,7 +28,7 @@ export default function ProductPage() {
           setProduct(response.data);
         }
       } catch (error) {
-        console.error("Грешка при зареждане на продукта:", error);
+        console.error("Error", error);
         if (isMounted) {
           setError(true);
         }

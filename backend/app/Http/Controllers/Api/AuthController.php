@@ -51,7 +51,7 @@
             }
         
             return response()->json([
-                'message' => 'Изходът е успешен.',
+                'message' => 'Logged out successfully.',
             ]);
         }
     }
