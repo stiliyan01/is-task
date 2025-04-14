@@ -6,6 +6,7 @@ const Filter = ({
   maxPrice,
   setMaxPrice,
   categories,
+  priceLimit,
 }) => (
   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
     <div>
@@ -35,7 +36,8 @@ const Filter = ({
         type="range"
         id="priceRange"
         min="0"
-        max="100"
+        max={priceLimit}
+        step="1"
         value={maxPrice}
         onChange={(e) => setMaxPrice(Number(e.target.value))}
         className="w-full accent-indigo-500"

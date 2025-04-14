@@ -9,6 +9,7 @@ function HomePage() {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("Всички");
   const [maxPrice, setMaxPrice] = useState(100);
+  const [priceLimit, setPriceLimit] = useState(100);
   const [cart, setCart] = useState(() => {
     const stored = sessionStorage.getItem("cart");
     return stored ? JSON.parse(stored) : [];
@@ -23,10 +24,18 @@ function HomePage() {
           api.get("/products"),
           api.get("/categories"),
         ]);
-        setProducts(productRes.data);
+        const allProducts = productRes.data;
+
+        setProducts(allProducts);
         setCategories(categoryRes.data);
+
+        const highestPrice = Math.max(
+          ...allProducts.map((p) => parseFloat(p.price))
+        );
+        setPriceLimit(highestPrice);
+        setMaxPrice(highestPrice);
       } catch (err) {
-        console.error("Грешка при зареждане на продукти", err);
+        console.error("Error loading data:", err);
       } finally {
         setIsLoading(false);
       }
@@ -52,10 +61,12 @@ function HomePage() {
   };
 
   const filteredProducts = products.filter((product) => {
-    const inCategory =
-      selectedCategory === "Всички" ||
-      product.category_id === Number(selectedCategory);
-    const inPriceRange = product.price <= maxPrice;
+    const isAll = selectedCategory === "Всички";
+    const selectedCatId = isAll ? null : Number(selectedCategory);
+
+    const inCategory = isAll || product.category_id === selectedCatId;
+    const inPriceRange = parseFloat(product.price) <= maxPrice;
+
     return inCategory && inPriceRange;
   });
 
@@ -80,6 +91,7 @@ function HomePage() {
             maxPrice={maxPrice}
             setMaxPrice={setMaxPrice}
             categories={categories}
+            priceLimit={priceLimit}
           />
           <ProductList
             filteredProducts={filteredProducts}
