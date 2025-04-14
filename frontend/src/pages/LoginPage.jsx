@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import FlashMessage from "../components/FlashMessage";
-import api from "../api";
+import api, { initializeCsrf } from "../api";
 
 export default function Login() {
   const [form, setForm] = useState({
@@ -10,8 +10,6 @@ export default function Login() {
   });
 
   const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from || "/";
 
   const [flashMessage, setFlashMessage] = useState("");
   const [flashMessageType, setFlashMessageType] = useState("");
@@ -35,10 +33,9 @@ export default function Login() {
       sessionStorage.setItem("user", JSON.stringify(response.data.data.user));
       sessionStorage.setItem("token", response.data.data.token);
 
-      navigate(from);
+      navigate(-1);
     } catch (error) {
       setFlashMessage("Грешка при вход. Проверете данните си.");
-      setFlashMessageType("error");
     } finally {
       setLoading(false);
     }
@@ -92,11 +89,7 @@ export default function Login() {
 
         <p className="text-center text-sm text-gray-600 mt-4">
           Нямаш акаунт?
-          <Link
-            to="/register"
-            state={{ from }}
-            className="text-indigo-600 hover:underline ml-1"
-          >
+          <Link to="/register" className="text-indigo-600 hover:underline ml-1">
             Регистрирай се
           </Link>
         </p>

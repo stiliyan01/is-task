@@ -15,7 +15,6 @@ import AdminPage from "./pages/admin/AdminPage";
 import AdminMiddleware from "./middleware/AdminMiddleware";
 import GuestOnlyRoute from "./middleware/GuestOnlyRoute";
 import LoggedUserOnly from "./middleware/LoggedUserOnly";
-import RedirectAfterRegistration from "./middleware/RedirectAfterRegistration";
 
 import ProductPage from "./pages/admin/product/ProductPage";
 import CreateProductPage from "./pages/admin/product/CreateProductPage";
@@ -43,11 +42,8 @@ const router = createBrowserRouter([
   },
   {
     path: "/checkout",
-    element: (
-      <RedirectAfterRegistration>
-        <Checkout />
-      </RedirectAfterRegistration>
-    ),
+    element: <Checkout />,
+
     errorElement: <ErrorPage />,
   },
 
