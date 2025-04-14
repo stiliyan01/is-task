@@ -1,6 +1,5 @@
 import axios from "axios";
 
-const token = sessionStorage.getItem("token");
 const api = axios.create({
   baseURL: "http://localhost:8000/api",
   withXSRFToken: true,
@@ -10,8 +9,15 @@ const api = axios.create({
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
-    ...(token && { Authorization: `Bearer ${token}` }),
   },
+});
+
+api.interceptors.request.use((config) => {
+  const token = sessionStorage.getItem("token");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
 });
 
 export default api;

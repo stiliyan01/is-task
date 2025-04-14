@@ -21,9 +21,9 @@ const OrderPage = () => {
         let response;
 
         if (isAdmin && !isUserPage) {
-          response = await api.get("/admin/orders"); // админ гледа всички
+          response = await api.get("/admin/orders");
         } else {
-          response = await api.get("/orders"); // юзър вижда само своите
+          response = await api.get("/orders");
         }
 
         setOrders(response.data);
