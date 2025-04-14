@@ -1,6 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function ErrorPage() {
+  const navigate = useNavigate();
+
+  const handleBack = () => {
+    navigate(-1);
+  };
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 px-4">
       <div className="max-w-md bg-white shadow-xl rounded-3xl p-8 text-center">
@@ -12,12 +17,12 @@ export default function ErrorPage() {
           Свържете се с администратора на сайта, за да разрешите проблема.
         </p>
 
-        <Link
-          href="/"
+        <button
+          onClick={handleBack}
           className="inline-block mt-6 bg-indigo-600 text-white px-6 py-2 rounded-xl hover:bg-indigo-700 transition"
         >
-          Обратно към началото
-        </Link>
+          Обратно
+        </button>
       </div>
     </div>
   );
