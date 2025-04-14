@@ -13,6 +13,8 @@ import ProfilePage from "./pages/ProfilePage";
 import AdminPage from "./pages/admin/AdminPage";
 
 import AdminMiddleware from "./middleware/AdminMiddleware";
+import GuestOnlyRoute from "./middleware/GuestOnlyRoute";
+import LoggedUserOnly from "./middleware/LoggedUserOnly";
 
 import ProductPage from "./pages/admin/product/ProductPage";
 import CreateProductPage from "./pages/admin/product/CreateProductPage";
@@ -26,7 +28,7 @@ import OrderPage from "./pages/admin/order/OrderPage";
 import OrderDetailsPage from "./pages/admin/order/OrderDetailsPage";
 
 import ErrorPage from "./pages/ErrorPage";
-import GuestOnlyRoute from "./middleware/GuestOnlyRoute";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -64,7 +66,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/profile",
-    element: <ProfilePage />,
+    element: (
+      <LoggedUserOnly>
+        <ProfilePage />
+      </LoggedUserOnly>
+    ),
     errorElement: <ErrorPage />,
     children: [
       {
