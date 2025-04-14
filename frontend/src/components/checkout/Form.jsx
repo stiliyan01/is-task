@@ -130,7 +130,7 @@ export default function CheckoutForm({ cart, setCart }) {
         required
       />
       <input
-        type="tel"
+        type="number"
         name="phoneNumber"
         placeholder="Телефон"
         value={formData.phoneNumber}
