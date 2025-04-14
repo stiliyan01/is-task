@@ -14,6 +14,7 @@ const EditProductPage = () => {
   });
   const [categories, setCategories] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [notFound, setNotFound] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,9 +24,17 @@ const EditProductPage = () => {
           api.get(`/products/${id}`),
           api.get("/categories"),
         ]);
-        setProduct(productRes.data);
-        setCategories(categoriesRes.data);
+
+        if (!productRes.data || !productRes.data.id) {
+          setNotFound(true);
+        } else {
+          setProduct(productRes.data);
+          setCategories(categoriesRes.data);
+        }
       } catch (error) {
+        if (error.response?.status === 404) {
+          setNotFound(true);
+        }
       } finally {
         setIsLoading(false);
       }
@@ -47,13 +56,23 @@ const EditProductPage = () => {
     try {
       await api.put(`/products/${id}`, product);
       navigate(-1);
-    } catch (error) {}
+    } catch (error) {
+      console.error("Грешка при запазване на продукта:", error);
+    }
   };
+
+  if (notFound) {
+    return (
+      <div className="text-center mt-10 text-red-600 font-semibold">
+        Продуктът не е намерен.
+      </div>
+    );
+  }
 
   return (
     <div>
       <div className="flex flex-row justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold ">Редактиране на продукт</h1>
+        <h1 className="text-2xl font-bold">Редактиране на продукт</h1>
         <BackButton />
       </div>
 

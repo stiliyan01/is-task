@@ -29,7 +29,11 @@ const OrderDetailsPage = () => {
 
   if (loading) return <div className="p-6">Зареждане...</div>;
   if (!order)
-    return <div className="p-6 text-red-500">Поръчката не е намерена.</div>;
+    return (
+      <div className="text-center mt-10 text-red-600 font-semibold">
+        Поръчката не е намерена.
+      </div>
+    );
 
   return (
     <div className="p-6 max-w-4xl mx-auto space-y-6 bg-gray-50 rounded-xl">
