@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom"; // 👈 добави useLocation
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import api from "../api";
 import FlashMessage from "../components/FlashMessage";
 
@@ -11,8 +11,8 @@ export default function Register() {
   });
 
   const navigate = useNavigate();
-  const location = useLocation(); // 👈 тук
-  const from = location.state?.from || "/"; // 👈 тук
+  const location = useLocation();
+  const from = location.state?.from || "/";
 
   const [flashMessage, setFlashMessage] = useState("");
   const [flashMessageType, setFlashMessageType] = useState("");
@@ -34,7 +34,7 @@ export default function Register() {
       sessionStorage.setItem("user", JSON.stringify(response.data.data.user));
       sessionStorage.setItem("token", response.data.data.token);
 
-      navigate(from); // 👈 вместо "/"
+      navigate(from);
     } catch (error) {
       setFlashMessage("Възникна грешка при регистрацията.");
       setFlashMessageType("error");
@@ -101,7 +101,7 @@ export default function Register() {
             Вече имаш акаунт?<span> </span>
             <Link
               to="/login"
-              state={{ from }} // 👈 запазваме от къде е дошъл
+              state={{ from }}
               className="text-indigo-600 hover:underline"
             >
               Вход
