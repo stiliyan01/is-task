@@ -26,7 +26,7 @@ class OrderController extends Controller
         $order = Order::create($request->validated());
         
         return response()->json([
-            'message' => 'Поръчката е съхранена успешно!',
+            'message' => 'Order stored successfully!',
             'order' => $order,
         ], 201);
     }
@@ -49,7 +49,7 @@ class OrderController extends Controller
         $order->update($validated);
 
         return response()->json([
-            'message' => 'Поръчката е обновена успешно!',
+            'message' => 'Order updated successfully!',
             'order' => $order,
         ]);
     }
@@ -62,7 +62,7 @@ class OrderController extends Controller
         $order->delete();
 
         return response()->json([
-            'message' => 'Поръчката е изтрита успешно.',
+            'message' => 'Order deleted successfully.',
         ]);
     }
 
