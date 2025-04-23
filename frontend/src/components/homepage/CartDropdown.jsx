@@ -77,7 +77,7 @@ const CartDropdown = ({ cart, setCart, isCartOpen, setIsCartOpen }) => {
                         {item.name}
                       </span>
                       <span className="text-sm text-gray-500">
-                        категория: {item.category_name}
+                        категория: {item.category.name}
                       </span>
                     </div>
                     <button onClick={() => removeItem(item.id)}>
